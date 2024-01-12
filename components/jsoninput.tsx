@@ -16,18 +16,25 @@ const JsonInput: React.FC<JsonInputProps> = ({ onChange, value }) => {
 
     try {
       // Attempt to parse the input as JSON
-      if(inputValue || inputValue !== ""){
+      if (inputValue || inputValue !== "") {
         JSON.parse(inputValue);
         setIsValidJson(true);
         setErrorMessage("");
+        console.log()
         onChange(JSON.parse(inputValue));
-      }
-      else{
+      } else {
         onChange("");
-      }     
+        setErrorMessage("");
+      }
     } catch (error: any) {
-      setIsValidJson(false);
-      setErrorMessage(error.message || "Invalid JSON format");
+      if (inputValue !== "") {
+        setIsValidJson(false);
+        setErrorMessage(error.message || "Invalid JSON format");
+      }else {
+        onChange("");
+        setErrorMessage("");
+      }
+
     }
   };
 
@@ -39,9 +46,9 @@ const JsonInput: React.FC<JsonInputProps> = ({ onChange, value }) => {
         // rows={20}
         // cols={50}
         placeholder="Enter JSON here"
-        className={`w-full border-2 rounded-xl border-gray-700 ${
+        className={`w-full border-2 bg-white text-black focus:outline-none rounded-md border-gray-500 ${
           isValidJson ? "border-gray-700" : "border-red-500"
-        } p-5 min-h-[70vh] bg-transparent text-xs `}
+        } p-5 min-h-[80vh] bg-transparent text-xs `}
       />
       {!isValidJson && (
         <div className="text-red-500 mt-2">

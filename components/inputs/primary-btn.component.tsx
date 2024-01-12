@@ -27,7 +27,7 @@ const PrimaryBtnComponent = ({
       type={type}
       onClick={onClick}
       className={cn(
-        'text-xs rounded-md py-2 px-4 inline-flex items-center justify-center gap-2 hover:shadow-md',
+        'text-xs rounded-md py-1 px-4 inline-flex items-center justify-center gap-2 hover:shadow-md',
         variant === 'outline' && 'bg-white text-blue border border-blue',
         variant === 'filled' && 'bg-slate-700 text-white border border-blue',
         iconPosition === 'left' ? 'flex-row' : 'flex-row-reverse',

@@ -1,4 +1,6 @@
 import React, { FC, useEffect } from "react";
+import DescriptionComponent from "./description.component";
+import { useFormContext } from "react-hook-form";
 
 interface RadioButtonGroupProps {
   name: string;
@@ -18,13 +20,16 @@ const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
   value,
   options,
 }) => {
+  const { unregister } = useFormContext();
 
   const handleOptionClick = (optionValue: string) => {
+    let keys = name.split(".");
+    unregister(keys[0]);
     setValue(name, optionValue);
   };
 
-  useEffect(()=>{
-    if(value){
+  useEffect(() => {
+    if (value) {
       setValue(name, value);
     }
   }, [name, value]);
@@ -42,9 +47,13 @@ const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
         >
           {option.icon && <span className="mr-2">{option.icon}</span>}
           {option.label}
-          {/* {option.description && (
-            <span className="ml-2 text-gray-500">{option.description}</span>
-          )} */}
+
+          {option?.description !== "" && (
+            <DescriptionComponent
+              label={option.label}
+              description={option?.description}
+            />
+          )}
         </button>
       ))}
     </div>

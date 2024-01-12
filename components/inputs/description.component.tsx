@@ -6,7 +6,7 @@ export default function DescriptionComponent({
   description,
 }: {
   label?: string;
-  description: string;
+  description: string | undefined;
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -20,13 +20,13 @@ export default function DescriptionComponent({
 
   return (
     <div
-      className="text-xs font-normal relative"
+      className="text-xs font-normal relative "
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
     >
       <FaCircleInfo className="text-blue cursor-pointer" />{" "}
       {isHovered && (
-        <div className="bg-white px-4 py-3 text-blue absolute top-0 left-5 font-medium border rounded-md flex flex-col gap-1 min-w-56">
+        <div className="bg-white px-4 py-3 text-blue absolute top-0 z-[999] left-5 font-medium border rounded-md flex flex-col gap-1 min-w-56">
          <span className="text-black">{label}</span>  <hr /> {description}
         </div>
       )}
