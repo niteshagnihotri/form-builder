@@ -28,7 +28,7 @@ export default function Home() {
         {uiSchema && uiSchema !== "" ? (
           <JsonForm formData={uiSchema} />
         ) : (
-          <h1 className="text-center text-sm mt-5"> Generated Form</h1>
+          <h1 className="text-center text-sm mt-5 text-slate-600"> Form will displayed here...</h1>
         )}
       </div>
     </div>

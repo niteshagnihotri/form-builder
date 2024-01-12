@@ -4,7 +4,6 @@ import { useFormContext } from "react-hook-form";
 
 interface RadioButtonGroupProps {
   name: string;
-  setValue: (name: string, value: string) => void;
   value: string | null;
   options: Array<{
     label: string;
@@ -16,11 +15,10 @@ interface RadioButtonGroupProps {
 
 const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
   name,
-  setValue,
   value,
   options,
 }) => {
-  const { unregister } = useFormContext();
+  const { unregister, setValue } = useFormContext();
 
   const handleOptionClick = (optionValue: string) => {
     let keys = name.split(".");

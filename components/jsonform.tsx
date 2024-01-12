@@ -9,7 +9,7 @@ import { evaluateExpression } from "@/lib/functions";
 import CheckboxInputComponent from "./inputs/checkbox-input.component";
 import PrimaryBtnComponent from "./inputs/primary-btn.component";
 
-export default function JsonForm({ formData}: { formData: any}) {
+export default function JsonForm({ formData }: { formData: any }) {
   const [submitData, setSubmitData] = useState();
   const formMethods = useForm();
 
@@ -32,10 +32,14 @@ export default function JsonForm({ formData}: { formData: any}) {
     <div>
       <FormProvider {...formMethods}>
         <form
-          className="w-full px-4 pt-5 pb-3 border h-full rounded-xl flex flex-col space-y-5 text-xs font-medium"
+          className="w-full px-4 pt-5 pb-3 h-full rounded-xl flex flex-col space-y-5 text-xs font-medium"
           onSubmit={handleSubmit(onSubmit)}
         >
-       {submitData && <h1 className="text-green-600 text-base font-semibold">Check Backend Data in Console !!</h1>}
+          {submitData && (
+            <h1 className="text-green-600 text-base font-semibold">
+              Check Backend Data in Console !!
+            </h1>
+          )}
           <hr />
           {formData.map((inputSchema: any, parent_index: number) => {
             let parent_UiType = inputSchema.uiType.toLowerCase();
@@ -95,6 +99,20 @@ export default function JsonForm({ formData}: { formData: any}) {
                     defaultValue={inputSchema.validate.defaultValue}
                   />
                 );
+
+                case "radio":
+                  ///////////////////// RADIO 1 ////////////////////
+                  return (
+                    <RadioButtonGroup
+                      key={parent_index}
+                      value={
+                        watch(parent_jsonKey) ??
+                        inputSchema.defaultValue
+                      }
+                      name={parent_jsonKey}
+                      options={inputSchema.options}
+                    />
+                  );
 
               case "group":
                 ///////////////////// GROUP 0 ////////////////////
@@ -190,7 +208,6 @@ export default function JsonForm({ formData}: { formData: any}) {
                                   }
                                   name={group_jsonKey}
                                   options={group.validate.options}
-                                  setValue={setValue}
                                 />
                               );
 
@@ -258,6 +275,19 @@ export default function JsonForm({ formData}: { formData: any}) {
                                                 placeholder={
                                                   childSchema.placeholder
                                                 }
+                                              />
+                                            );
+                                          case "radio":
+                                            ///////////////////// RADIO 2 ////////////////////
+                                            return (
+                                              <RadioButtonGroup
+                                                key={level2Key}
+                                                value={
+                                                  watch(group_jsonKey) ??
+                                                  childSchema.defaultValue
+                                                }
+                                                name={input_name}
+                                                options={childSchema.options}
                                               />
                                             );
                                           case "switch":
